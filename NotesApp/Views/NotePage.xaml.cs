@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using NotesApp.Models;
 using System;
 using Windows.Storage;
 
@@ -13,44 +14,27 @@ namespace NotesApp.Views
     /// </summary>
     public sealed partial class NotePage : Page
     {
-        private StorageFolder _storageFolder = ApplicationData.Current.LocalFolder;
-        private StorageFile? noteFile = null;
-        private string fileName = "note.txt";
+        private Note? noteModel;
 
         public NotePage()
         {
             InitializeComponent();
-
-            Loaded += NotePage_Loaded;
-        }
-
-        private async void NotePage_Loaded(object sender, RoutedEventArgs e)
-        {
-            noteFile = (StorageFile)await _storageFolder.TryGetItemAsync(fileName);
-
-            if (noteFile is not null)
-            {
-                NoteEditor.Text = await FileIO.ReadTextAsync(noteFile);
-            }
         }
 
         private async void SaveNote_Click(object sender, RoutedEventArgs e)
         {
-            if (noteFile is null)
+            if (noteModel != null)
             {
-                noteFile = await _storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+                await noteModel.SaveAsync();
             }
-
-            await FileIO.WriteTextAsync(noteFile, NoteEditor.Text);
         }
 
         private async void DeleteNote_Click(object sender, RoutedEventArgs e)
         {
-            if (noteFile is not null)
+            if (noteModel is not null)
             {
-                await noteFile.DeleteAsync();
-                noteFile = null;
-                NoteEditor.Text = string.Empty;
+                await noteModel.DeleteAsync();
+
             }
         }
     }

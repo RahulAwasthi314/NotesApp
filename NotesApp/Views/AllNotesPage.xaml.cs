@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml.Controls;
+using NotesApp.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -10,6 +11,8 @@ namespace NotesApp.Views
     /// </summary>
     public sealed partial class AllNotesPage : Page
     {
+        private NoteList notesModel = new();
+
         public AllNotesPage()
         {
             InitializeComponent();

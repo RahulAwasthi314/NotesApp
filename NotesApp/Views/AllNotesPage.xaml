@@ -8,6 +8,27 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBox Text="Ui layer is completed" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <CommandBar DefaultLabelPosition="Right">
+            <AppBarButton Icon="Add" Label="New note" />
+            <CommandBar.Content>
+                <TextBlock Text="Quick Notes" Margin="16,8" 
+                           Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            </CommandBar.Content>
+        </CommandBar>
+
+        <ItemsView ItemsSource="{x:Bind notesModel.Notes}"
+                   Grid.Row="1" Padding="16">
+            <ItemsView.Layout>
+                <UniformGridLayout MinItemHeight="200"
+                                   MinColumnSpacing="12"
+                                   MinRowSpacing="12"
+                                   ItemsJustification="Start" />
+            </ItemsView.Layout>
+        </ItemsView>
     </Grid>
 </Page>
