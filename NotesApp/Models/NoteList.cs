@@ -18,9 +18,13 @@ namespace NotesApp.Models
             LoadNotes();
         }
 
-        public async void LoadNotes()
+        public async Task LoadNotes()
         {
             Notes.Clear();
+
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+
+            await GetFilesInFolderAsync(storageFolder);
         }
 
         private async Task GetFilesInFolderAsync(StorageFolder folder)

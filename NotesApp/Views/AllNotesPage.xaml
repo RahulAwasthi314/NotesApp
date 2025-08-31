@@ -5,7 +5,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:NotesApp.Models"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="NoteItemTemplate"
+                      x:DataType="models:Note">
+            <ItemContainer>
+                <Grid Background="LightGray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Bind Text}" Margin="12,8"
+                               TextWrapping="Wrap"
+                               TextTrimming="WordEllipsis" />
+                    <Border Grid.Row="1" Padding="8,6,0,6"
+                            Background="Gray">
+                        <TextBlock Text="{x:Bind Date}"
+                                   Foreground="White" />
+                    </Border>
+                </Grid>
+            </ItemContainer>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +45,8 @@
         </CommandBar>
 
         <ItemsView ItemsSource="{x:Bind notesModel.Notes}"
-                   Grid.Row="1" Padding="16">
+                   Grid.Row="1" Padding="16"
+                   ItemTemplate="{StaticResource NoteItemTemplate}">
             <ItemsView.Layout>
                 <UniformGridLayout MinItemHeight="200"
                                    MinColumnSpacing="12"
