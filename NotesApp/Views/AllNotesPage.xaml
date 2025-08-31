@@ -41,7 +41,7 @@
         </Grid.RowDefinitions>
 
         <CommandBar DefaultLabelPosition="Right">
-            <AppBarButton Icon="Add" Label="New note" />
+            <AppBarButton Icon="Add" Label="New note" Click="NewNoteButton_Click"/>
             <CommandBar.Content>
                 <TextBlock Text="Quick Notes" Margin="16,8" 
                            Style="{ThemeResource SubtitleTextBlockStyle}"/>
@@ -50,6 +50,9 @@
 
         <ItemsView ItemsSource="{x:Bind notesModel.Notes}"
                    Grid.Row="1" Padding="24"
+                   SelectionMode="None"
+                   IsItemInvokedEnabled="True"
+                   ItemInvoked="NotesView_NoteInvoked"
                    ItemTemplate="{StaticResource NoteItemTemplate}">
             <ItemsView.Layout>
                 <UniformGridLayout MinItemWidth="200"

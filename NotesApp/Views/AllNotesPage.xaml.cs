@@ -1,3 +1,4 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using NotesApp.Models;
 
@@ -16,6 +17,16 @@ namespace NotesApp.Views
         public AllNotesPage()
         {
             InitializeComponent();
+        }
+
+        private void NewNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(NotePage));
+        }
+
+        private void NotesView_NoteInvoked(ItemsView sender, ItemsViewItemInvokedEventArgs args)
+        {
+            Frame.Navigate(typeof(NotePage), args.InvokedItem);
         }
     }
 }
